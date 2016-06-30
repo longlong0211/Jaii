@@ -1,0 +1,44 @@
+{
+	"index.html": {
+		"href": "index.html",
+		"resources": [
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"images/guide.jpg"
+		],
+		"refer": [
+			"views/init/login.html"
+		],
+		"priority": 0
+	},
+	"main.html": {
+		"resources": [
+			"account.html",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
+		],
+		"refer": [
+			"account.html",
+			"setting.html"
+		]
+	},
+	"account.html": {
+		"resources": [
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
+		],
+		"refer": []
+	},
+	"setting.html": {
+		"resources": [
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/feedback.css",
+			"images/default_header.png"
+		],
+		"refer": []
+	}
+}
