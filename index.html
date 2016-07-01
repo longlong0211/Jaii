@@ -4,28 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <title></title>
-    <script src="js/mui.min.js"></script>
     <link href="css/mui.min.css" rel="stylesheet"/>
-    <script type="text/javascript" charset="UTF-8">
-     (function($){
-     	$.init();
-     	setTimeout(function () {
-			$.plusReady(function(){
-     			mui.openWindow({
-			    		url:"views/init/login.html",
-			    		id:"login.html",
-			    		show:{
-				      autoShow:true,//页面loaded事件发生后自动显示，默认为true
-				      aniShow:"none"//页面显示动画，默认为”slide-in-right“；
-				    },
-			    		 waiting:{
-				      autoShow:false//自动显示等待框，默认为true
-				    }
-		  		});
-     		});
-     	},2000);
-     })(mui);
-    </script>
      <style>
        html,body,.bg{
 		margin: 0px;
@@ -51,5 +30,44 @@
 			<img src="images/guide.jpg" />
 			</div>
 		</div>
+	 <script src="js/mui.min.js"></script>
+	 <script src="js/common.js"></script>
+	 <script type="text/javascript" charset="UTF-8">
+     (function($){
+     	$.init();
+     	$.plusReady(function(){
+		    // 获取本地应用资源版本号
+//		    plus.runtime.getProperty(plus.runtime.appid,function(inf){
+//		   	 	alert("当前应用版本："+inf.version);
+//		    });
+//   		alert("imei:"+plus.device.imei);
+//   		alert("imsi:"+plus.device.imsi);
+//			alert("model:"+plus.device.model);//设备型号：iphone，honor h30-l02
+//			alert("vendor:"+plus.device.vendor);//备的生产厂商:apple huawei
+//			alert("uuid:"+plus.device.uuid);//342533
+//			alert("name:"+plus.os.name);//ios,android
+//			alert( "OS version: " + plus.os.version );//9.2,4.4.2
+			var data = {"model":plus.device.model,"vendor":plus.device.vendor,"os":plus.os.version};
+			postData("/app/init/initTerminal.json",data,
+					function(data){
+						console.log(data.udid);
+					});
+     	});
+     	
+     	setTimeout(function () {
+			mui.openWindow({
+		    		url:"views/init/login.html",
+		    		id:"login.html",
+		    		show:{
+			      autoShow:true,//页面loaded事件发生后自动显示，默认为true
+			      aniShow:"none"//页面显示动画，默认为”slide-in-right“；
+			    },
+		    		 waiting:{
+			      autoShow:false//自动显示等待框，默认为true
+			    }
+	  		});
+     	},1000);
+     })(mui);
+    </script>
 </body>
 </html>
