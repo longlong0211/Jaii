@@ -67,6 +67,7 @@
 		</div>
 		<script src="../../js/mui.min.js"></script>
 		<script src="../../js/common.js"></script>
+		<script src="../../js/md5.js"></script>
 		<script>
 			(function($){
 				$.init();
@@ -91,8 +92,8 @@
 							$.toast("密码两次输入不一致");
 							return;
 						}
-						 var wd = plus.nativeUI.showWaiting();
-						var data = {"userName":userName,"pwd":pwd,"confirm":confirm};
+						var wd = plus.nativeUI.showWaiting();
+						var data = {"userName":userName,"pwd":hex_md5(pwd),"confirm":hex_md5(confirm)};
 						postRequest("/app/user/register.json",plus,data,function(data){
 							wd.close();
 							plus.storage.setItem("k",data.k);
