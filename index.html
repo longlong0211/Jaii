@@ -36,22 +36,21 @@
      (function($){
      	$.init();
      	$.plusReady(function(){
-		    // 获取本地应用资源版本号
-//		    plus.runtime.getProperty(plus.runtime.appid,function(inf){
-//		   	 	alert("当前应用版本："+inf.version);
-//		    });
-//   		alert("imei:"+plus.device.imei);
-//   		alert("imsi:"+plus.device.imsi);
-//			alert("model:"+plus.device.model);//设备型号：iphone，honor h30-l02
-//			alert("vendor:"+plus.device.vendor);//备的生产厂商:apple huawei
-//			alert("uuid:"+plus.device.uuid);//342533
-//			alert("name:"+plus.os.name);//ios,android
-//			alert( "OS version: " + plus.os.version );//9.2,4.4.2
-			var data = {"model":plus.device.model,"vendor":plus.device.vendor,"os":plus.os.version};
-			postData("/app/init/initTerminal.json",data,
-					function(data){
-						console.log(data.udid);
-					});
+     		var k = plus.storage.getItem("k");
+     		if(k==null){
+     			initVersion();
+				var data = {"model":plus.device.model,
+							"vendor":plus.device.vendor,
+							"os":plus.os.version,
+							"udid":plus.device.uuid,
+							"name":plus.os.name,
+							"version":plus.storage.getItem("version")};
+				postData("/app/init/initTerminal.json",plus,data,
+						function(data){
+							console.log(data.k);
+							plus.storage.setItem("k",data.k);
+						});
+     		};
      	});
      	
      	setTimeout(function () {

@@ -198,7 +198,8 @@
 					"js/mui.min.js",
 					"css/mui.min.css",
 					"fonts/mui.ttf",
-					"images/guide.jpg"
+					"images/guide.jpg",
+					"js/common.js"
 				],
 				"priority": 0,
 				"refer": [
