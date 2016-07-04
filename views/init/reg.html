@@ -50,15 +50,15 @@
 			<form class="mui-input-group">
 				<div class="mui-input-row">
 					<label>账号</label>
-					<input id='account' type="text" class="mui-input-clear mui-input" placeholder="请输入账号">
+					<input id='userName' type="text" class="mui-input-clear mui-input" placeholder="请输入账号">
 				</div>
 				<div class="mui-input-row">
 					<label>密码</label>
-					<input id='password' type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+					<input id='pwd' type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
 				</div>
 				<div class="mui-input-row">
 					<label>确认</label>
-					<input id='password_confirm' type="password" class="mui-input-clear mui-input" placeholder="请确认密码">
+					<input id='confirm' type="password" class="mui-input-clear mui-input" placeholder="请确认密码">
 				</div>
 			</form>
 			<div class="mui-content-padded">
@@ -66,6 +66,54 @@
 			</div>
 		</div>
 		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/common.js"></script>
+		<script>
+			(function($){
+				$.init();
+				$.plusReady(function(){
+					document.getElementById("reg").addEventListener("tap",function(event){
+						var userName = document.getElementById("userName").value;
+						var pwd = document.getElementById("pwd").value;
+						var confirm = document.getElementById("confirm").value;
+						if(userName=="" || userName==null){
+							$.toast("请输入账号");
+							return;
+						}
+						if(pwd==""||pwd==null){
+							$.toast("请输入密码");
+							return;
+						}
+						if(confirm==""||confirm==null){
+							$.toast("请确认密码");
+							return;
+						}
+						if(pwd!=confirm){
+							$.toast("密码两次输入不一致");
+							return;
+						}
+						 var wd = plus.nativeUI.showWaiting();
+						var data = {"userName":userName,"pwd":pwd,"confirm":confirm};
+						postRequest("/app/user/register.json",plus,data,function(data){
+							wd.close();
+							plus.storage.setItem("k",data.k);
+							mui.openWindow({
+						    		url:"../../main.html",
+						    		id:"main.html",
+						    		show:{
+							      autoShow:true,//页面loaded事件发生后自动显示，默认为true
+							      aniShow:"none"//页面显示动画，默认为”slide-in-right“；
+							    },
+						    		 waiting:{
+							      autoShow:false//自动显示等待框，默认为true
+							    }
+				  			});
+						},wd);
+						
+					});
+				});
+			})(mui);
+			
+		</script>
 	</body>
 
 </html>

@@ -98,6 +98,22 @@
 			</div>
 		</div>
 		<script src="../../js/mui.min.js"></script>
+		<script>
+			mui.init();
+			mui('.link-area').on('tap', 'a', function(e) {
+				mui.openWindow({
+			    		url:"reg.html",
+			    		id:"reg.html",
+			    		show:{
+				      autoShow:true,//页面loaded事件发生后自动显示，默认为true
+				      aniShow:"none"//页面显示动画，默认为”slide-in-right“；
+				    },
+			    		 waiting:{
+				      autoShow:false//自动显示等待框，默认为true
+				    }
+	  			});
+			});
+		</script>
 	</body>
 
 </html>
