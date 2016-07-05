@@ -13,13 +13,57 @@
 			<div style="margin-top: 30%;">
 				<h5>账号在安全密码保护下，请输入安全密码：</h5>
 				<div class="mui-input-row mui-password" style="margin-top: 15px;">
-					<input type="password" class="mui-input-password">
+					<input type="password" class="mui-input-password" id="pwd">
 				</div>
 				<div class="mui-button-row">
-					<button type="button" class="mui-btn mui-btn-primary" onclick="return false;">进入安全账号</button>
+					<button type="button" class="mui-btn mui-btn-primary" id="enter-button">进入安全账号</button>
 				</div>
 			</div>
 		</div>
 	</div>
+	<script src="js/zepto.1.1.6.js"></script>
+	<script src="js/jsencrypt.min.js
+		"></script>
+	<script src="js/common.js"></script>
+	<script>
+		(function($){
+			$.init();
+			$.plusReady(function(){
+				document.getElementById("enter-button").addEventListener("tap",function(event){
+					var pwd = document.getElementById("pwd").value;
+					if(pwd==""||pwd==null){
+						$.toast("请输入安全密码");
+					}
+					var encrypt = new JSEncrypt();
+					var pubKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCrLvW6DalOqPwaQxbGS14HJjqraUGe2Aikeh/ghpV+sXJUI1dIsVr/wy4nxd8YwsQClAGul9jt5xEtzcSYTH9eX00qjPEe8GHW8o5P5qN1wMa2XJecBKWGvfNIbBJgmpFWsJKEtPoz7w6lEQWvt+YZsX9cM4r7HJtgEbBlDgya6QIDAQAB";
+					encrypt.setPublicKey(pubKey);
+					pwd = encrypt.encrypt(pwd);
+					console.log(pwd);
+					var wd = plus.nativeUI.showWaiting();
+					var data = {"pwd":pwd};
+					postRequest("/app/user/accountPwd.json",plus,data,
+						function(data){
+							wd.close();
+							if(data.errCode=="0"){
+								mui.openWindow({
+							    		url:"/views/account/accountList.html",
+							    		id:"accountList.html",
+							    		show:{
+								      autoShow:true,//页面loaded事件发生后自动显示，默认为true
+								      aniShow:"none"//页面显示动画，默认为”slide-in-right“；
+								    },
+							    		 waiting:{
+								      autoShow:false//自动显示等待框，默认为true
+								    },
+								    extras:{
+								    		pwd:pwd
+								    }
+				  				});
+							}
+						},wd);
+				});
+			});
+		})(mui);
+	</script>
 </body>
 </html>
