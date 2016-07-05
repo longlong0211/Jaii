@@ -54,3 +54,23 @@ function postRequest(url,plus,data,callback,waitingDialog){
         }  
     });  				
 }
+
+
+function postNoDialog(url,plus,data,callback){
+	var headers = {"udid":plus.device.uuid,
+					"name":plus.os.name,
+					"version":plus.storage.getItem(version_key),
+					"k":plus.storage.getItem(k_key)};
+	mui.ajax(base_server+url,{  
+        data:data,  
+        dataType:'json',  
+        type:'post',  
+        headers:headers,
+        contentType:"application/x-www-form-urlencoded; charset=utf-8",  
+        timeout:60000,  
+        success:callback,  
+        error:function(xhr,type,errorThrown){  
+            mui.alert("<网络连接失败，请重新尝试一下>", "错误", "OK", null);  
+        }  
+    });  				
+}

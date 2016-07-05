@@ -15,33 +15,41 @@
 	  <div id="pullrefresh" class="mui-content mui-scroll-wrapper">
 		<div class="mui-scroll">
 			<!--数据列表-->
-			<ul class="mui-table-view mui-table-view-chevron">
-			  <li class="mui-table-view-cell mui-media">
-				<a href="javascript:;" class="mui-navigate-right">
-					<div style="margin-top: 8px">
-						<span style="color:  #007aff">掌中宝</span>&nbsp;&nbsp;
-						<span style="color:  #007aff">577531920@qq.com</span>&nbsp;&nbsp;
-						<span style="color:  #007aff">hf5522156</span>
-					</div>
-				</a>
-			  </li>
-			  <li class="mui-table-view-cell mui-media">
-				<a href="javascript:;" class="mui-navigate-right">
-					<div style="margin-top: 8px">
-						<span style="color:  #007aff">掌中宝</span>&nbsp;&nbsp;
-						<span style="color:  #007aff">577531920@qq.com</span>&nbsp;&nbsp;
-						<span style="color:  #007aff">hf5522156</span>
-					</div>
-				</a>
-			  </li>
+			<ul class="mui-table-view mui-table-view-chevron" style="font-size:14px;" id="mui-content">
+			  
 			</ul>
+			<script type="text/html" id="account-list">
+				{{each accountList as account}}
+				  <li class="mui-table-view-cell mui-media">
+					<a href="javascript:;" class="mui-navigate-right">
+						<div>
+							<span style="color:  #007aff">{{account.name}}</span>&nbsp;&nbsp;
+							<span style="color:  #007aff">{{account.accountNo}}</span>&nbsp;&nbsp;
+							<span style="color:  #007aff">{{account.pwd}}</span>
+						</div>
+					</a>
+				  </li>
+				 {{/each}} 
+			</script>
 		</div>
 	 </div>
-		
-		
 		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/common.js"></script>
+		<script src="../../js/template.js"></script>
 		<script type="text/javascript">
-			mui.init()
+			(function($){
+				$.init();
+				$.plusReady(function(){
+					var self = plus.webview.currentWebview();
+					var pwd = self.pwd;
+					var data = {"pwd":pwd};
+					postNoDialog("/app/user/accountList.json",plus,data,
+						function(data){
+							var html = template("account-list",data);
+							document.getElementById("mui-content").innerHTML = html;
+						});
+				});
+			})(mui);
 		</script>
 	</body>
 

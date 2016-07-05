@@ -33,12 +33,12 @@
 					var pwd = document.getElementById("pwd").value;
 					if(pwd==""||pwd==null){
 						$.toast("请输入安全密码");
+						return;
 					}
 					var encrypt = new JSEncrypt();
 					var pubKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCrLvW6DalOqPwaQxbGS14HJjqraUGe2Aikeh/ghpV+sXJUI1dIsVr/wy4nxd8YwsQClAGul9jt5xEtzcSYTH9eX00qjPEe8GHW8o5P5qN1wMa2XJecBKWGvfNIbBJgmpFWsJKEtPoz7w6lEQWvt+YZsX9cM4r7HJtgEbBlDgya6QIDAQAB";
 					encrypt.setPublicKey(pubKey);
 					pwd = encrypt.encrypt(pwd);
-					console.log(pwd);
 					var wd = plus.nativeUI.showWaiting();
 					var data = {"pwd":pwd};
 					postRequest("/app/user/accountPwd.json",plus,data,
