@@ -100,8 +100,11 @@
 							mui('#pullrefresh').pullRefresh().enablePullupToRefresh();
 						}
 				});
-			}
+			};
 			
+			window.addEventListener("backRefresh",function(event){
+				pulldownRefresh();
+			});
 		</script>
 	</body>
 

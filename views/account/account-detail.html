@@ -16,15 +16,15 @@
 				<div class="mui-input-group">
 					<div class="mui-input-row">
 						<label>名称</label>
-						<input type="text" class="mui-input-clear" placeholder="输入记录名称">
+						<input id="name" type="text" class="mui-input-clear" placeholder="输入记录名称">
 					</div>
 					<div class="mui-input-row">
 						<label>账号</label>
-						<input type="text" class="mui-input-clear" placeholder="输入记录账号">
+						<input id="accountNo" type="text" class="mui-input-clear" placeholder="输入记录账号">
 					</div>
 					<div class="mui-input-row">
 						<label>密码</label>
-						<input type="password" class="mui-input-password" placeholder="输入记录密码">
+						<input id="pwd" type="password" class="mui-input-password" placeholder="输入记录密码">
 					</div>
 					<!--<div class="mui-input-row">
 						<label>新增</label>
@@ -35,17 +35,57 @@
 					</div>-->
 				</div>
 				<div class="mui-input-row" style="margin: 10px 5px;">
-					<textarea id="textarea" rows="5" placeholder="填写备忘信息"></textarea>
+					<textarea id="memo" rows="5" placeholder="填写备忘信息"></textarea>
 				</div>
 				<div class="mui-button-row">
-						<button type="button" class="mui-btn mui-btn-primary" onclick="return false;">保存</button>&nbsp;&nbsp;
+						<button type="button" class="mui-btn mui-btn-primary" id="addAccount">保存</button>&nbsp;&nbsp;
 						<button type="button" class="mui-btn mui-btn-danger" onclick="return false;">取消</button>
 				</div>
 			</div>
 		</div>
 		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/common.js"></script>
+		<script src="../../js/zepto.1.1.6.js"></script>
+		<script src="../../js/jsencrypt.min.js"></script>
 		<script type="text/javascript">
-			mui.init()
+			(function($){
+				$.init();
+				$.plusReady(function(){
+					document.getElementById("addAccount").addEventListener("tap",function(event){
+						var name = document.getElementById("name").value;
+						var accountNo = document.getElementById("accountNo").value;
+						var pwd = document.getElementById("pwd").value;
+						var memo = document.getElementById("memo").text;
+						if(name=="" || name==null){
+							$.toast("输入记录名称");
+							return;
+						}
+						if(accountNo==""||accountNo==null){
+							$.toast("输入记录账号");
+							return;
+						}
+						if(pwd==""||pwd==null){
+							$.toast("请输入记录密码");
+							return;
+						}
+						if(memo==""||memo==null){
+							memo="";
+						}
+						var encrypt = new JSEncrypt();
+						var pubKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCNKl3AQgXVYM7neR5F4sD2lUI9UylCvyFU4algzwicydsmr2bNIougI9I1ydAs/vXNvGXDPHvgLGzXJUkHak/5sIUBkhzx0bDvgPKi5UMHeHZ+ZORk6cpsi4KEB54hBRgz3od8EouGTvI8fex0lRLd7DJfThKJvdmP34f2yag49QIDAQAB";
+						encrypt.setPublicKey(pubKey);
+						pwd = encrypt.encrypt(pwd);
+						var wd = plus.nativeUI.showWaiting();
+						var data = {"name":name,"pwd":pwd,"accountNo":accountNo,"memo":memo};
+						postRequest("/app/user/addAccount.json",plus,data,function(data){
+							wd.close();
+							$.toast("保存成功");
+							$.fire(plus.webview.getWebviewById("account-list.html"), 'backRefresh');
+							$.back();
+						},wd);
+					})
+				});
+			})(mui);
 		</script>
 	</body>
 
