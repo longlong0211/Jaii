@@ -30,10 +30,13 @@
 			"fonts/mui.ttf",
 			"css/mui.min.css",
 			"js/zepto.1.1.6.js",
-			"js/jsencrypt.min.js"
+			"js/jsencrypt.min.js",
+			"js/common.js"
 		],
 		"refer": [
-			"views/account/accountList.html"
+			"views/account/accountList.html",
+			"views/account/pullrefresh_main.html",
+			"views/account/account-main.html"
 		]
 	},
 	"setting.html": {
@@ -63,6 +66,30 @@
 			"js/mui.min.js",
 			"fonts/mui.ttf",
 			"css/mui.min.css"
+		]
+	},
+	"views/account/pullrefresh_main.html": {
+		"resources": [
+			"views/account/accountList.html",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
+		],
+		"refer": [
+			"views/account/accountList.html"
+		]
+	},
+	"views/account/account-list.html": {
+		"resources": [
+			"js/template.js"
+		]
+	},
+	"views/account/account-main.html": {
+		"resources": [
+			"views/account/account-list.html"
+		],
+		"refer": [
+			"views/account/account-list.html"
 		]
 	}
 }

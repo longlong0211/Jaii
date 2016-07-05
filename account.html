@@ -39,6 +39,7 @@
 					var pubKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCrLvW6DalOqPwaQxbGS14HJjqraUGe2Aikeh/ghpV+sXJUI1dIsVr/wy4nxd8YwsQClAGul9jt5xEtzcSYTH9eX00qjPEe8GHW8o5P5qN1wMa2XJecBKWGvfNIbBJgmpFWsJKEtPoz7w6lEQWvt+YZsX9cM4r7HJtgEbBlDgya6QIDAQAB";
 					encrypt.setPublicKey(pubKey);
 					pwd = encrypt.encrypt(pwd);
+					plus.storage.setItem("accountPwd",pwd);
 					var wd = plus.nativeUI.showWaiting();
 					var data = {"pwd":pwd};
 					postRequest("/app/user/accountPwd.json",plus,data,
@@ -46,17 +47,14 @@
 							wd.close();
 							if(data.errCode=="0"){
 								mui.openWindow({
-							    		url:"/views/account/accountList.html",
-							    		id:"accountList.html",
+							    		url:"/views/account/account-main.html",
+							    		id:"account-main.html",
 							    		show:{
 								      autoShow:true,//页面loaded事件发生后自动显示，默认为true
 								      aniShow:"none"//页面显示动画，默认为”slide-in-right“；
 								    },
 							    		 waiting:{
 								      autoShow:false//自动显示等待框，默认为true
-								    },
-								    extras:{
-								    		pwd:pwd
 								    }
 				  				});
 							}

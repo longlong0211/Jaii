@@ -7,11 +7,6 @@
 		<link href="../../css/mui.min.css" rel="stylesheet" />
 	</head>
 	<body>
-		<header class="mui-bar mui-bar-nav">
-		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		    <h1 class="mui-title">账号信息</h1>
-		    <a class="mui-icon mui-icon-plusempty mui-pull-right" id="open"></a>
-		</header>
 	  <div id="pullrefresh" class="mui-content mui-scroll-wrapper">
 		<div class="mui-scroll">
 			<!--数据列表-->
@@ -58,8 +53,10 @@
 					}
 				});
 				$.plusReady(function(){
-					var self = plus.webview.currentWebview();
-					pwd = self.pwd;
+//					var self = plus.webview.currentWebview();
+//					pwd = self.pwd;
+					pwd = plus.storage.getItem("accountPwd");
+					plus.storage.removeItem("accountPwd");
 					initList();
 				});
 			})(mui);
@@ -88,7 +85,6 @@
 			};
 			
 			function pulldownRefresh(){
-				alert("下拉");
 				page=1;
 				var data = {"pwd":pwd,"page":page};
 				postNoDialog("/app/user/accountList.json",plus,data,
