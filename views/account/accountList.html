@@ -15,7 +15,7 @@
 	  <div id="pullrefresh" class="mui-content mui-scroll-wrapper">
 		<div class="mui-scroll">
 			<!--数据列表-->
-			<ul class="mui-table-view mui-table-view-chevron" style="font-size:14px;" id="mui-content">
+			<ul class="mui-table-view" style="font-size:14px;" id="mui-content">
 			  
 			</ul>
 			<script type="text/html" id="account-list">
@@ -34,22 +34,78 @@
 		</div>
 	 </div>
 		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/zepto.1.1.6.js"></script>
 		<script src="../../js/common.js"></script>
 		<script src="../../js/template.js"></script>
 		<script type="text/javascript">
+			var pwd;
+			var hasMore=true,page=1;
 			(function($){
-				$.init();
+				$.init({
+					pullRefresh: {
+						container: '#pullrefresh',
+						up: {
+					      	contentrefresh : "正在加载...",//可选，正在加载状态时，上拉加载控件上显示的标题内容
+					      	contentnomore:'没有更多数据了',
+							callback: pullupRefreshUp
+						},
+						down:{
+							contentdown : "下拉可以刷新",//可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+					      	contentover : "释放立即刷新",//可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+					     	contentrefresh : "正在刷新...",//可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+					      	callback:pulldownRefresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+						}
+					}
+				});
 				$.plusReady(function(){
 					var self = plus.webview.currentWebview();
-					var pwd = self.pwd;
-					var data = {"pwd":pwd};
-					postNoDialog("/app/user/accountList.json",plus,data,
-						function(data){
-							var html = template("account-list",data);
-							document.getElementById("mui-content").innerHTML = html;
-						});
+					pwd = self.pwd;
+					initList();
 				});
 			})(mui);
+			
+			function initList(){
+				var data = {"pwd":pwd,"page":page};
+				postNoDialog("/app/user/accountList.json",plus,data,
+					function(data){
+						var html = template("account-list",data);
+						$("#mui-content").append(html)
+						if(data.page==data.totalPage){
+							hasMore = false;
+							mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);//参数为true说明没有更多数据
+							mui('#pullrefresh').pullRefresh().disablePullupToRefresh();
+						}else{
+							mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
+							page++;
+						}
+				});
+			};
+			
+			function pullupRefreshUp(){
+				if(hasMore){
+					initList();
+				}
+			};
+			
+			function pulldownRefresh(){
+				alert("下拉");
+				page=1;
+				var data = {"pwd":pwd,"page":page};
+				postNoDialog("/app/user/accountList.json",plus,data,
+					function(data){
+						var html = template("account-list",data);
+						document.getElementById("mui-content").innerHTML = html
+						mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+						if(data.page==data.totalPage){
+							hasMore = false;
+						}else{
+							page++;
+							hasMore = true;
+							mui('#pullrefresh').pullRefresh().enablePullupToRefresh();
+						}
+				});
+			}
+			
 		</script>
 	</body>
 
