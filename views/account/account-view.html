@@ -79,7 +79,7 @@
 						pwd = encrypt.encrypt(pwd);
 						var wd = plus.nativeUI.showWaiting();
 						var data = {"id":id,"name":name,"pwd":pwd,"accountNo":accountNo,"memo":memo,"accountPwd":plus.storage.getItem("accountPwd")};
-						postRequest("/app/user/addAccount.json",plus,data,function(data){
+						postRequest("/app/user/updateAccount.json",plus,data,function(data){
 							wd.close();
 							if(data.errCode=="0"){
 								$.toast("保存成功");

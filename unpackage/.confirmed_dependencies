@@ -121,5 +121,15 @@
 		"resources": [
 			"fonts/mui.ttf"
 		]
+	},
+	"views/account/account-view.html": {
+		"resources": [
+			"js/jsencrypt.min.js",
+			"js/zepto.1.1.6.js",
+			"js/common.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
+		]
 	}
 }

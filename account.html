@@ -45,6 +45,7 @@
 						function(data){
 							wd.close();
 							if(data.errCode=="0"){
+								document.getElementById("pwd").value="";
 								mui.openWindow({
 							    		url:"/views/account/account-main.html",
 							    		id:"account-main.html",
