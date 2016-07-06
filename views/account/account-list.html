@@ -15,8 +15,8 @@
 			</ul>
 			<script type="text/html" id="account-list">
 				{{each accountList as account}}
-				 <li class="mui-table-view-cell">
-				  	<a href="javascript:;" class="mui-navigate-right">
+				 <li class="mui-table-view-cell" id={{account.id}}>
+				  	<a href="javascript:;" class="mui-navigate-right" >
 			            <div class="mui-table">
 			                <div class="mui-table-cell">
 			                    <h5>名称：<span style="color:#007aff;font-size: 16px;margin-left: 5px;">{{account.name}}</span></h5>
@@ -60,6 +60,10 @@
 					pwd = plus.storage.getItem("accountPwd");
 					plus.storage.removeItem("accountPwd");
 					initList();
+					mui.preload({
+					    url:'account-view.html',
+					    id:'account-view.html'
+					});
 				});
 			})(mui);
 			
@@ -107,6 +111,24 @@
 			window.addEventListener("backRefresh",function(event){
 				pulldownRefresh();
 			});
+1			
+			var detailPage = null;
+			//添加列表项的点击事件
+			mui('.mui-scroll').on('tap', '.mui-table-view-cell', function(e) {
+			  var id = this.getAttribute('id');
+			  //获得详情页面
+			  if(!detailPage){
+			    detailPage = plus.webview.getWebviewById('account-view.html');
+			  }
+			  //触发详情页面的newsId事件
+			  mui.fire(detailPage,'accountViewId',{
+			    id:id
+			  });
+			//打开详情页面          
+			  mui.openWindow({
+			    id:"account-view.html"
+			  });
+			});  
 		</script>
 	</body>
 

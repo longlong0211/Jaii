@@ -55,7 +55,8 @@
 			"js/md5.js"
 		],
 		"refer": [
-			"main.html"
+			"main.html",
+			"views/init/reg.html"
 		]
 	},
 	"views/account/accountList.html": {
@@ -111,6 +112,11 @@
 			"js/common.js",
 			"js/zepto.1.1.6.js",
 			"js/jsencrypt.min.js"
+		]
+	},
+	"views/init/reg.html": {
+		"resources": [
+			"fonts/mui.ttf"
 		]
 	}
 }

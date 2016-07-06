@@ -251,7 +251,8 @@
 					"js/md5.js"
 				],
 				"refer": [
-					"main.html"
+					"main.html",
+					"views/init/reg.html"
 				],
 				"priority": 0
 			},
@@ -311,6 +312,13 @@
 					"js/common.js",
 					"js/zepto.1.1.6.js",
 					"js/jsencrypt.min.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"views/init/reg.html": {
+				"resources": [
+					"fonts/mui.ttf"
 				],
 				"refer": [],
 				"priority": 0

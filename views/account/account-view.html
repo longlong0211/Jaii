@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">账号详情</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-content-padded" style="margin: 5px;">
+				<div class="mui-input-group">
+					<input id="id" type="hidden"/>
+					<div class="mui-input-row">
+						<label>名称</label>
+						<input id="name" type="text" class="mui-input-clear" placeholder="输入记录名称">
+					</div>
+					<div class="mui-input-row">
+						<label>账号</label>
+						<input id="accountNo" type="text" class="mui-input-clear" placeholder="输入记录账号">
+					</div>
+					<div class="mui-input-row">
+						<label>密码</label>
+						<input id="pwd" type="password" class="mui-input-password" placeholder="输入记录密码">
+					</div>
+					<!--<div class="mui-input-row">
+						<label>新增</label>
+						<input type="text" class="mui-input-clear" placeholder="输入记录内容">
+					</div>
+					<div class="mui-input-row">
+						 <a class="mui-icon mui-icon-plusempty mui-pull-right" id="open"></a>
+					</div>-->
+				</div>
+				<div class="mui-input-row" style="margin: 10px 5px;">
+					<textarea id="memo" rows="5" placeholder="填写备忘信息"></textarea>
+				</div>
+				<div class="mui-button-row">
+						<button type="button" class="mui-btn mui-btn-primary" id="addAccount">保存</button>&nbsp;&nbsp;
+						<button type="button" class="mui-btn mui-btn-danger" onclick="return false;">取消</button>
+				</div>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/common.js"></script>
+		<script src="../../js/zepto.1.1.6.js"></script>
+		<script src="../../js/jsencrypt.min.js"></script>
+		<script type="text/javascript">
+			(function($){
+				$.init();
+				$.plusReady(function(){
+					document.getElementById("addAccount").addEventListener("tap",function(event){
+						var id=document.getElementById("id").value;
+						var name = document.getElementById("name").value;
+						var accountNo = document.getElementById("accountNo").value;
+						var pwd = document.getElementById("pwd").value;
+						var memo = document.getElementById("memo").text;
+						if(name=="" || name==null){
+							$.toast("输入记录名称");
+							return;
+						}
+						if(accountNo==""||accountNo==null){
+							$.toast("输入记录账号");
+							return;
+						}
+						if(pwd==""||pwd==null){
+							$.toast("请输入记录密码");
+							return;
+						}
+						if(memo==""||memo==null){
+							memo="";
+						}
+						var encrypt = new JSEncrypt();
+						var pubKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCNKl3AQgXVYM7neR5F4sD2lUI9UylCvyFU4algzwicydsmr2bNIougI9I1ydAs/vXNvGXDPHvgLGzXJUkHak/5sIUBkhzx0bDvgPKi5UMHeHZ+ZORk6cpsi4KEB54hBRgz3od8EouGTvI8fex0lRLd7DJfThKJvdmP34f2yag49QIDAQAB";
+						encrypt.setPublicKey(pubKey);
+						pwd = encrypt.encrypt(pwd);
+						var wd = plus.nativeUI.showWaiting();
+						var data = {"id":id,"name":name,"pwd":pwd,"accountNo":accountNo,"memo":memo};
+						postRequest("/app/user/addAccount.json",plus,data,function(data){
+							wd.close();
+							$.toast("保存成功");
+							$.fire(plus.webview.getWebviewById("account-list.html"), 'backRefresh');
+							$.back();
+						},wd);
+					});
+					
+					window.addEventListener('accountViewId',function(event){
+						  var id = event.detail.id;
+						  var wd = plus.nativeUI.showWaiting();
+						  var data = {"id":id};
+						  postRequest("/app/user/findAccount.json",plus,data,
+						  	function(data){
+						  		wd.close();
+						  		document.getElementById("id").value=data.account.id;
+						  		document.getElementById("name").value=data.account.name;
+						  		document.getElementById("accountNo").value=data.account.accountNo;
+						  		document.getElementById("pwd").value=data.account.pwd;
+						  		document.getElementById("memo").text=data.account.memo;
+						  	},wd);
+						});
+				});
+			})(mui);
+		</script>
+	</body>
+
+</html>
