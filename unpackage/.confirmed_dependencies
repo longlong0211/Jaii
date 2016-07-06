@@ -89,6 +89,9 @@
 			"css/mui.min.css",
 			"fonts/mui.ttf",
 			"js/refresh.js"
+		],
+		"refer": [
+			"views/account/account-view.html"
 		]
 	},
 	"views/account/account-main.html": {

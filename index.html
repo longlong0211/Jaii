@@ -37,7 +37,7 @@
      	$.init();
      	$.plusReady(function(){
      		var k = plus.storage.getItem("k");
-     		if(k==null){
+     		if(k==null||k==""){
      			initVersion();
 				var data = {"model":plus.device.model,
 							"vendor":plus.device.vendor,
@@ -47,8 +47,9 @@
 							"version":plus.storage.getItem("version")};
 				postData("/app/init/initTerminal.json",plus,data,
 						function(data){
-							console.log(data.k);
-							plus.storage.setItem("k",data.k);
+							if(data.errCode=="0"){
+								plus.storage.setItem("k",data.k);
+							}
 						});
      		};
      	});

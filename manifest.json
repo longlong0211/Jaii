@@ -288,7 +288,9 @@
 					"fonts/mui.ttf",
 					"js/refresh.js"
 				],
-				"refer": [],
+				"refer": [
+					"views/account/account-view.html"
+				],
 				"priority": 0
 			},
 			"views/account/account-main.html": {
