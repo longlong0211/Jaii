@@ -78,27 +78,35 @@
 						encrypt.setPublicKey(pubKey);
 						pwd = encrypt.encrypt(pwd);
 						var wd = plus.nativeUI.showWaiting();
-						var data = {"id":id,"name":name,"pwd":pwd,"accountNo":accountNo,"memo":memo};
+						var data = {"id":id,"name":name,"pwd":pwd,"accountNo":accountNo,"memo":memo,"accountPwd":plus.storage.getItem("accountPwd")};
 						postRequest("/app/user/addAccount.json",plus,data,function(data){
 							wd.close();
-							$.toast("保存成功");
-							$.fire(plus.webview.getWebviewById("account-list.html"), 'backRefresh');
-							$.back();
+							if(data.errCode=="0"){
+								$.toast("保存成功");
+								$.fire(plus.webview.getWebviewById("account-list.html"), 'backRefresh');
+								$.back();
+							}else{
+								$.toast(data.errMess);
+							}
 						},wd);
 					});
 					
 					window.addEventListener('accountViewId',function(event){
 						  var id = event.detail.id;
 						  var wd = plus.nativeUI.showWaiting();
-						  var data = {"id":id};
+						  var data = {"id":id,"accountPwd":plus.storage.getItem("accountPwd")};
 						  postRequest("/app/user/findAccount.json",plus,data,
 						  	function(data){
 						  		wd.close();
-						  		document.getElementById("id").value=data.account.id;
-						  		document.getElementById("name").value=data.account.name;
-						  		document.getElementById("accountNo").value=data.account.accountNo;
-						  		document.getElementById("pwd").value=data.account.pwd;
-						  		document.getElementById("memo").text=data.account.memo;
+						  		if(data.errCode=="0"){
+						  			document.getElementById("id").value=data.account.id;
+						  			document.getElementById("name").value=data.account.name;
+						  			document.getElementById("accountNo").value=data.account.accountNo;
+						  			document.getElementById("pwd").value=data.account.pwd;
+						  			document.getElementById("memo").text=data.account.memo;
+						  		}else{
+						  			mui.toast(data.errMess);
+						  		}
 						  	},wd);
 						});
 				});

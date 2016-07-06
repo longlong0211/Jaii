@@ -58,7 +58,7 @@
 //					var self = plus.webview.currentWebview();
 //					pwd = self.pwd;
 					pwd = plus.storage.getItem("accountPwd");
-					plus.storage.removeItem("accountPwd");
+					//plus.storage.removeItem("accountPwd");为了添加和修改账号
 					initList();
 					mui.preload({
 					    url:'account-view.html',
@@ -71,15 +71,19 @@
 				var data = {"pwd":pwd,"page":page};
 				postNoDialog("/app/user/accountList.json",plus,data,
 					function(data){
-						var html = template("account-list",data);
-						$("#mui-content").append(html)
-						if(data.page==data.totalPage){
-							hasMore = false;
-							mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);//参数为true说明没有更多数据
-							mui('#pullrefresh').pullRefresh().disablePullupToRefresh();
-						}else{
-							mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
-							page++;
+						if(data.errCode=="0"){
+							var html = template("account-list",data);
+							$("#mui-content").append(html)
+							if(data.page==data.totalPage){
+								hasMore = false;
+								mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);//参数为true说明没有更多数据
+								mui('#pullrefresh').pullRefresh().disablePullupToRefresh();
+							}else{
+								mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
+								page++;
+							}
+						}else {
+							mui.toast(data.errMess);
 						}
 				});
 			};
@@ -95,15 +99,19 @@
 				var data = {"pwd":pwd,"page":page};
 				postNoDialog("/app/user/accountList.json",plus,data,
 					function(data){
-						var html = template("account-list",data);
-						document.getElementById("mui-content").innerHTML = html
-						mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
-						if(data.page==data.totalPage){
-							hasMore = false;
-						}else{
-							page++;
-							hasMore = true;
-							mui('#pullrefresh').pullRefresh().enablePullupToRefresh();
+						if(data.errCode=="0"){
+							var html = template("account-list",data);
+							document.getElementById("mui-content").innerHTML = html
+							mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+							if(data.page==data.totalPage){
+								hasMore = false;
+							}else{
+								page++;
+								hasMore = true;
+								mui('#pullrefresh').pullRefresh().enablePullupToRefresh();
+							}
+						}else {
+							mui.toast(data.errMess);
 						}
 				});
 			};

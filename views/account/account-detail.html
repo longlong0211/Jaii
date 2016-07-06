@@ -79,9 +79,13 @@
 						var data = {"name":name,"pwd":pwd,"accountNo":accountNo,"memo":memo};
 						postRequest("/app/user/addAccount.json",plus,data,function(data){
 							wd.close();
-							$.toast("保存成功");
-							$.fire(plus.webview.getWebviewById("account-list.html"), 'backRefresh');
-							$.back();
+							if(data.errCode=="0"){
+								$.toast("保存成功");
+								$.fire(plus.webview.getWebviewById("account-list.html"), 'backRefresh');
+								$.back();
+							}else {
+								$.toast(data.errMess);
+							}
 						},wd);
 					})
 				});
