@@ -78,7 +78,7 @@
 				
 				var hasAccountPwd = plus.storage.getItem("hasAccountPwd");
 				if(hasAccountPwd=="1"){
-					document.getElementById("moreOperate").style.display="block";
+					//document.getElementById("moreOperate").style.display="block";
 				}else {
 					document.getElementById("signleOperate").style.display="block";
 				};
@@ -98,6 +98,16 @@
 				});
 			});
 		})(mui);
+
+		window.addEventListener("hasAccountPwd",function(event){
+				var hasAccountPwd = plus.storage.getItem("hasAccountPwd");
+				if(hasAccountPwd=="1"){
+					//document.getElementById("moreOperate").style.display="none";
+					document.getElementById("signleOperate").style.display="none";
+				}else {
+					
+				};
+			});
 	</script>
 </body>
 </html>

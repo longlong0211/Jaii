@@ -243,7 +243,9 @@
 					"css/feedback.css",
 					"images/default_header.png"
 				],
-				"refer": [],
+				"refer": [
+					"views/account/account-pwd.html"
+				],
 				"priority": 0
 			},
 			"views/init/login.html": {
@@ -345,7 +347,10 @@
 				"resources": [
 					"js/mui.min.js",
 					"fonts/mui.ttf",
-					"css/mui.min.css"
+					"css/mui.min.css",
+					"js/common.js",
+					"js/zepto.1.1.6.js",
+					"js/jsencrypt.min.js"
 				],
 				"refer": [],
 				"priority": 0

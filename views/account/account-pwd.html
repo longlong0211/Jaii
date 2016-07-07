@@ -1,6 +1,5 @@
 <!doctype html>
 <html>
-
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
@@ -11,21 +10,56 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		    <h1 class="mui-title">安全密码</h1>
+		    <h1 class="mui-title">设置密码</h1>
 		</header>
 		<div class="mui-content">
-		    <div class="mui-input-row">
-					<label>账号</label>
-					<input id='userName' type="text" class="mui-input-clear mui-input" placeholder="请输入账号">
+		<div class="mui-content-padded" style="margin: 5px;">
+			<div style="margin-top: 30%;">
+				<h5>设置账号保护密码：</h5>
+				<div class="mui-input-row mui-password" style="margin-top: 15px;">
+					<input type="password" class="mui-input-password" id="accountPwd">
 				</div>
-				<div class="mui-input-row">
-					<label>密码</label>
-					<input id='pwd' type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+				<div class="mui-button-row">
+					<button type="button" class="mui-btn mui-btn-primary" style="width: 100%;font-size: 18px;" id="enter-button">保存</button>
 				</div>
+			</div>
 		</div>
+	</div>
 		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/zepto.1.1.6.js"></script>
+		<script src="../../js/jsencrypt.min.js"></script>
+		<script src="../../js/common.js"></script>
 		<script type="text/javascript">
-			mui.init();
+			(function($){
+				$.init();
+				$.plusReady(function(){
+					document.getElementById("enter-button").addEventListener("tap",function(event){
+						var accountPwd = document.getElementById("accountPwd").value;
+						if(accountPwd==""||accountPwd==null){
+							$.toast("请输入密码");
+							return;
+						}
+						var encrypt = new JSEncrypt();
+						var pubKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCrLvW6DalOqPwaQxbGS14HJjqraUGe2Aikeh/ghpV+sXJUI1dIsVr/wy4nxd8YwsQClAGul9jt5xEtzcSYTH9eX00qjPEe8GHW8o5P5qN1wMa2XJecBKWGvfNIbBJgmpFWsJKEtPoz7w6lEQWvt+YZsX9cM4r7HJtgEbBlDgya6QIDAQAB";
+						encrypt.setPublicKey(pubKey);
+						accountPwd = encrypt.encrypt(accountPwd);
+						var data = {"accountPwd":accountPwd};
+						var wd = plus.nativeUI.showWaiting();
+						postRequest("/app/user/setAccountPwd.json",plus,data,
+							function(data){
+								wd.close();
+								if(data.errCode=="0"){
+									plus.storage.setItem("hasAccountPwd",data.hasAccountPwd);
+									$.toast("设置成功");
+									$.fire(plus.webview.getWebviewById("account.html"), 'hasAccountPwd');
+									$.back();
+								}else {
+									$.toast(data.errMess);
+								}
+							},wd);
+					});
+				});
+			})(mui);
 		</script>
 	</body>
 
