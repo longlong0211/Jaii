@@ -57,7 +57,7 @@
 						var name = document.getElementById("name").value;
 						var accountNo = document.getElementById("accountNo").value;
 						var pwd = document.getElementById("pwd").value;
-						var memo = document.getElementById("memo").text;
+						var memo = document.getElementById("memo").value;
 						if(name=="" || name==null){
 							$.toast("输入记录名称");
 							return;
@@ -82,6 +82,7 @@
 						postRequest("/app/user/updateAccount.json",plus,data,function(data){
 							wd.close();
 							if(data.errCode=="0"){
+								document.getElementById("memo").value="";
 								$.toast("保存成功");
 								$.fire(plus.webview.getWebviewById("account-list.html"), 'backRefresh');
 								$.back();
@@ -103,7 +104,7 @@
 						  			document.getElementById("name").value=data.account.name;
 						  			document.getElementById("accountNo").value=data.account.accountNo;
 						  			document.getElementById("pwd").value=data.account.pwd;
-						  			document.getElementById("memo").text=data.account.memo;
+						  			document.getElementById("memo").value=data.account.memo;
 						  		}else{
 						  			mui.toast(data.errMess);
 						  		}
