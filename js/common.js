@@ -1,4 +1,4 @@
-var base_server = "http://192.168.199.220:8080";
+var base_server = "http://120.26.234.65:8088";
 var k,version;
 var version_key = "version";
 var k_key = "k";
