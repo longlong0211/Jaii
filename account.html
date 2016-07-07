@@ -6,6 +6,17 @@
     <title></title>
     <script src="js/mui.min.js"></script>
     <link href="css/mui.min.css" rel="stylesheet"/>
+    <style>
+    		.link-area {
+				display: block;
+				margin-top: 15px;
+				text-align: center;
+			}
+		.spliter {
+				color: #bbb;
+				padding: 0px 8px;
+			}	
+    </style>
 </head>
 <body>
 	<div class="mui-content">
@@ -16,7 +27,8 @@
 					<input type="password" class="mui-input-password" id="pwd">
 				</div>
 				<div class="mui-button-row">
-					<button type="button" class="mui-btn mui-btn-primary" id="enter-button">进入安全账号</button>
+					<button type="button" class="mui-btn mui-btn-primary" style="width: 100%;font-size: 18px;" id="enter-button">进入安全账号</button>
+					<div class="link-area"><a id='forgetPassword'>忘记密码</a><span class="spliter">|</span> <a id='forgetPassword'>修改密码</a> 
 				</div>
 			</div>
 		</div>

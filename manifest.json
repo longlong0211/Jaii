@@ -336,6 +336,15 @@
 				],
 				"refer": [],
 				"priority": 0
+			},
+			"views/account/account-pwd.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
 			}
 		},
 		"idle": {
