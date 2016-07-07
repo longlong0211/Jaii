@@ -98,6 +98,7 @@
 							wd.close();
 							if(data.errCode=="0"){
 								plus.storage.setItem("k",data.k);
+								plus.storage.setItem("hasAccountPwd",data.hasAccountPwd);
 								mui.openWindow({
 							    		url:"../../main.html",
 							    		id:"main.html",

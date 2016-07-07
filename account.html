@@ -9,7 +9,7 @@
     <style>
     		.link-area {
 				display: block;
-				margin-top: 15px;
+				margin-top: 20px;
 				text-align: center;
 			}
 		.spliter {
@@ -28,7 +28,8 @@
 				</div>
 				<div class="mui-button-row">
 					<button type="button" class="mui-btn mui-btn-primary" style="width: 100%;font-size: 18px;" id="enter-button">进入安全账号</button>
-					<div class="link-area"><a id='forgetPassword'>忘记密码</a><span class="spliter">|</span> <a id='forgetPassword'>修改密码</a> 
+					<div class="link-area" id="moreOperate" style="display: none;"><a id='forgetPassword'>忘记密码?</a><span class="spliter">|</span> <a id='forgetPassword'>修改密码</a> </div>
+					<div class="link-area" id="signleOperate" style="display: none;"><a id='forgetPassword'>设置密码</a> </div>
 				</div>
 			</div>
 		</div>
@@ -73,6 +74,27 @@
 								mui.toast(data.errMess);
 							}
 						},wd);
+				});
+				
+				var hasAccountPwd = plus.storage.getItem("hasAccountPwd");
+				if(hasAccountPwd=="1"){
+					document.getElementById("moreOperate").style.display="block";
+				}else {
+					document.getElementById("signleOperate").style.display="block";
+				};
+				
+				document.getElementById("signleOperate").addEventListener("tap",function(event){
+					$.openWindow({
+				    		url:"views/account/account-pwd.html",
+				    		id:"account-pwd.html",
+				    		show:{
+					      autoShow:true,//页面loaded事件发生后自动显示，默认为true
+					      aniShow:"none"//页面显示动画，默认为”slide-in-right“；
+					    },
+				    		 waiting:{
+					      autoShow:false//自动显示等待框，默认为true
+					    }
+			  		});
 				});
 			});
 		})(mui);

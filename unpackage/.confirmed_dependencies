@@ -36,7 +36,8 @@
 		"refer": [
 			"views/account/accountList.html",
 			"views/account/pullrefresh_main.html",
-			"views/account/account-main.html"
+			"views/account/account-main.html",
+			"views/account/account-pwd.html"
 		]
 	},
 	"setting.html": {
@@ -52,7 +53,10 @@
 	"views/init/login.html": {
 		"resources": [
 			"fonts/mui.ttf",
-			"js/md5.js"
+			"js/md5.js",
+			"js/common.js",
+			"js/mui.min.js",
+			"css/mui.min.css"
 		],
 		"refer": [
 			"main.html",
