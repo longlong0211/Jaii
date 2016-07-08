@@ -134,6 +134,7 @@
 						function(data){
 							wd.close();
 							if(data.errCode=="0"){
+								document.getElementById("pwd").value="";
 								plus.storage.setItem("k",data.k);
 								plus.storage.setItem("hasAccountPwd",data.hasAccountPwd);
 								mui.openWindow({
