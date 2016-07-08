@@ -231,6 +231,27 @@
 				    }
 	  			});
 			});
+			
+			document.getElementById("logout").addEventListener("tap",function(event){
+				postNoDialog("/app/user/logout.json",plus,null,function(data){
+					if(data.errCode=="0"){
+						//清除一下信息
+						plus.storage.setItem("k",data.k);
+						plus.storage.removeItem("accountPwd");
+						mui.openWindow({
+					    		url:"views/init/login.html",
+					    		id:"login.html",
+					    		show:{
+						      autoShow:true,//页面loaded事件发生后自动显示，默认为true
+						      aniShow:"none"//页面显示动画，默认为”slide-in-right“；
+						    },
+					    		 waiting:{
+						      autoShow:false//自动显示等待框，默认为true
+						    }
+				  		});
+					}
+				});
+			})
 		})(mui);
 	</script>
 </body>
