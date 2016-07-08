@@ -272,10 +272,13 @@
 					"js/mui.min.js",
 					"fonts/mui.ttf",
 					"css/feedback.css",
-					"images/default_header.png"
+					"images/default_header.png",
+					"js/common.js",
+					"images/icon.png"
 				],
 				"refer": [
-					"views/account/account-pwd.html"
+					"views/account/account-pwd.html",
+					"views/setting/setting-account.html"
 				],
 				"priority": 0
 			},
@@ -359,7 +362,9 @@
 				"resources": [
 					"fonts/mui.ttf"
 				],
-				"refer": [],
+				"refer": [
+					"main.html"
+				],
 				"priority": 0
 			},
 			"views/account/account-view.html": {
@@ -382,6 +387,16 @@
 					"js/common.js",
 					"js/zepto.1.1.6.js",
 					"js/jsencrypt.min.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"views/setting/setting-account.html": {
+				"resources": [
+					"images/default_header.png",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
 				],
 				"refer": [],
 				"priority": 0

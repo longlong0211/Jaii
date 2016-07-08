@@ -161,16 +161,16 @@
 		<div class="mui-scroll">
 			<ul class="mui-table-view mui-table-view-chevron">
 				<li class="mui-table-view-cell mui-media">
-					<a class="mui-navigate-right" href="#account">
-						<img class="mui-media-object mui-pull-left head-img" id="head-img" src="images/default_header.png">
+					<a class="mui-navigate-right" href="#account" id="accountDetail">
+						<img class="mui-media-object mui-pull-left head-img" id="head-img" src="images/icon.png">
 						<div class="mui-media-body">
-							蓝枫
-							<p class='mui-ellipsis'>账号:龙龙</p>
+							<span id="nickName">蓝枫</span>
+							<p class='mui-ellipsis'>账号:<span id="userName">龙龙</span></p>
 						</div>
 					</a>
 				</li>
 			</ul>
-			<ul class="mui-table-view mui-table-view-chevron">
+			<!--<ul class="mui-table-view mui-table-view-chevron">
 				<li class="mui-table-view-cell">
 					<a id="accountWd" href="#account" class="mui-navigate-right">安全密码</a>
 				</li>
@@ -190,7 +190,7 @@
 				<li class="mui-table-view-cell">
 					<a href="#about" class="mui-navigate-right">关于MUI <i class="mui-pull-right update">V3.1.0</i></a>
 				</li>
-			</ul>
+			</ul>-->
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell" style="text-align: center;">
 					<a style="text-align: center;color: #FF3B30;" id="logout">
@@ -201,23 +201,35 @@
 		</div>
 	</div>
 </div>
+	<script src="js/common.js"></script>
 	<script>
 		(function($){
 			$.init();
 			$.plusReady(function(){
-				document.getElementById("accountWd").addEventListener("tap",function(event){
-//					$.openWindow({
-//				    		url:"views/account/account-pwd.html",
-//				    		id:"account-pwd.html",
-//				    		show:{
-//					      autoShow:true,//页面loaded事件发生后自动显示，默认为true
-//					      aniShow:"none"//页面显示动画，默认为”slide-in-right“；
-//					    },
-//				    		 waiting:{
-//					      autoShow:false//自动显示等待框，默认为true
-//					    }
-//			  		});
+				postNoDialog("/app/my/index.json",plus,null,function(data){
+					document.getElementById("head-img").src=data.info.headPath;
+					document.getElementById("nickName").innerText=data.info.nickName;
+					document.getElementById("userName").innerText=data.info.userName;
 				});
+			});
+			document.getElementById("accountDetail").addEventListener("tap",function(event){
+				var headPath = document.getElementById("head-img").src;
+				var nickName = document.getElementById("nickName").textContent;
+				mui.openWindow({
+			    		url:"views/setting/setting-account.html",
+			    		id:"setting-account.html",
+			    		show:{
+				      autoShow:true,//页面loaded事件发生后自动显示，默认为true
+				      aniShow:"none"//页面显示动画，默认为”slide-in-right“；
+				    },
+			    		 waiting:{
+				      autoShow:true//自动显示等待框，默认为true
+				    },
+				    extras:{
+						headPath:headPath,
+						nickName:nickName
+				    }
+	  			});
 			});
 		})(mui);
 	</script>
