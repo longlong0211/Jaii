@@ -85,6 +85,7 @@
 			</div>
 		</div>
 		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/common.js"></script>
 		<script type="text/javascript">
 			(function($){
 				$.init();
@@ -124,7 +125,7 @@
 					});
 				});
 			})(mui);
-			
+			//图片预览
 			function initImgPreview() {
 				var imgs = document.querySelectorAll("img.mui-action-preview");
 				imgs = mui.slice.call(imgs);
@@ -164,7 +165,7 @@
 					var _slider = mui(slider).slider();
 				}
 			}
-			
+			//拍照
 			function getImage() {
 				var c = plus.camera.getCamera();
 				c.captureImage(function(e) {
@@ -173,6 +174,7 @@
 						console.log(s);
 						//document.getElementById("head-img").src = s;
 						document.getElementById("head-img1").src = s;
+						uploadFile("/app/init/uploadFile.json",plus,s);
 						//变更大图预览的src
 						//目前仅有一张图片，暂时如此处理，后续需要通过标准组件实现
 						document.querySelector("#__mui-imageview__group .mui-slider-item img").src = s + "?version=" + new Date().getTime();;;
@@ -185,7 +187,7 @@
 					filename: "_doc/head.jpg"
 				})
 			}
-
+		//从相册选择
 		function galleryImg() {
 			plus.gallery.pick(function(a) {
 				plus.io.resolveLocalFileSystemURL(a, function(entry) {
@@ -232,11 +234,10 @@
 				filter: "image"
 			})
 		};
-		
+		//防止点击图片弹出头像修改
 		document.getElementById("head-img1").addEventListener('tap', function(e) {
 			e.stopPropagation();
 		});
-			
 		</script>
 	</body>
 
