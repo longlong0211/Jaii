@@ -177,7 +177,7 @@
 						uploadFile("/app/init/uploadFile.json",plus,s);
 						//变更大图预览的src
 						//目前仅有一张图片，暂时如此处理，后续需要通过标准组件实现
-						document.querySelector("#__mui-imageview__group .mui-slider-item img").src = s + "?version=" + new Date().getTime();;;
+						//document.querySelector("#__mui-imageview__group .mui-slider-item img").src = s + "?version=" + new Date().getTime();;;
 					}, function(e) {
 						console.log("读取拍照文件错误：" + e.message);
 					});
@@ -200,9 +200,10 @@
 										var e = e.fullPath + "?version=" + new Date().getTime();
 										//document.getElementById("head-img").src = e;
 										document.getElementById("head-img1").src = e;
+										uploadFile("/app/init/uploadFile.json",plus,"file://"+e);
 										//变更大图预览的src
 										//目前仅有一张图片，暂时如此处理，后续需要通过标准组件实现
-										document.querySelector("#__mui-imageview__group .mui-slider-item img").src = e + "?version=" + new Date().getTime();;
+										//document.querySelector("#__mui-imageview__group .mui-slider-item img").src = e + "?version=" + new Date().getTime();;
 									},
 									function(e) {
 										console.log('copy image fail:' + e.message);
@@ -216,9 +217,10 @@
 									var path = e.fullPath + "?version=" + new Date().getTime();
 									//document.getElementById("head-img").src = path;
 									document.getElementById("head-img1").src = path;
+									uploadFile("/app/init/uploadFile.json",plus,"file://"+path);
 									//变更大图预览的src
 									//目前仅有一张图片，暂时如此处理，后续需要通过标准组件实现
-									document.querySelector("#__mui-imageview__group .mui-slider-item img").src = path;
+									//document.querySelector("#__mui-imageview__group .mui-slider-item img").src = path;
 								},
 								function(e) {
 									console.log('copy image fail:' + e.message);

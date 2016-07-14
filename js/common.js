@@ -77,26 +77,26 @@ function postNoDialog(url,plus,data,callback){
 };
 
 function uploadFile(url,plus,path){
-		var wt=plus.nativeUI.showWaiting();  
-		var task = plus.uploader.createUpload(base_server+url, 
-					{method:"POST"},
-					function ( t, status ) {
-						// 上传完成
-						if ( status == 200 ) { 
-							alert( t.responseText);
-							wt.close();  
-						} else {
-							alert( "Upload failed: " + status );
-							wt.close();  
-						}
+	var wt=plus.nativeUI.showWaiting();  
+	var task = plus.uploader.createUpload(base_server+url, 
+				{method:"POST"},
+				function (t, status ) {
+					// 上传完成
+					if ( status == 200 ) { 
+						alert(t.responseText);
+						wt.close();  
+					} else {
+						alert( "Upload failed: " + status );
+						wt.close();  
 					}
-		);
-		task.setRequestHeader("udid",plus.device.uuid);
-		task.setRequestHeader("name",plus.os.name);
-		task.setRequestHeader("version",plus.storage.getItem(version_key));
-		task.setRequestHeader("k",plus.storage.getItem(k_key));
-		task.addData("data","test");
-		task.addFile(path,{key:"file"})
-		task.start();  
+				}
+	);
+	task.setRequestHeader("udid",plus.device.uuid);
+	task.setRequestHeader("name",plus.os.name);
+	task.setRequestHeader("version",plus.storage.getItem(version_key));
+	task.setRequestHeader("k",plus.storage.getItem(k_key));
+	task.addData("data","test");
+	task.addFile(path,{key:"file"})
+	task.start();  
 }
 
