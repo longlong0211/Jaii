@@ -1,169 +1,184 @@
 {
-	"index.html": {
-		"href": "index.html",
-		"resources": [
-			"js/mui.min.js",
-			"css/mui.min.css",
-			"images/guide.jpg",
-			"js/common.js"
-		],
-		"refer": [
-			"views/init/login.html"
-		],
-		"priority": 0
-	},
-	"main.html": {
-		"resources": [
-			"account.html",
-			"js/mui.min.js",
-			"fonts/mui.ttf",
-			"css/mui.min.css"
-		],
-		"refer": [
-			"account.html",
-			"setting.html"
-		]
-	},
-	"account.html": {
-		"resources": [
-			"js/mui.min.js",
-			"fonts/mui.ttf",
-			"css/mui.min.css",
-			"js/zepto.1.1.6.js",
-			"js/jsencrypt.min.js",
-			"js/common.js"
-		],
-		"refer": [
-			"views/account/accountList.html",
-			"views/account/pullrefresh_main.html",
-			"views/account/account-main.html",
-			"views/account/account-pwd.html"
-		]
-	},
-	"setting.html": {
-		"resources": [
-			"css/mui.min.css",
-			"js/mui.min.js",
-			"fonts/mui.ttf",
-			"css/feedback.css",
-			"images/default_header.png",
-			"js/common.js",
-			"images/icon.png"
-		],
-		"refer": [
-			"views/account/account-pwd.html",
-			"views/setting/setting-account.html"
-		]
-	},
-	"views/init/login.html": {
-		"resources": [
-			"fonts/mui.ttf",
-			"js/md5.js",
-			"js/common.js",
-			"js/mui.min.js",
-			"css/mui.min.css"
-		],
-		"refer": [
-			"main.html",
-			"views/init/reg.html"
-		]
-	},
-	"views/account/accountList.html": {
-		"resources": [
-			"js/template.js",
-			"js/zepto.1.1.6.js",
-			"js/common.js",
-			"js/mui.min.js",
-			"fonts/mui.ttf",
-			"css/mui.min.css"
-		],
-		"refer": []
-	},
-	"views/account/pullrefresh_main.html": {
-		"resources": [
-			"views/account/accountList.html",
-			"js/mui.min.js",
-			"fonts/mui.ttf",
-			"css/mui.min.css"
-		],
-		"refer": [
-			"views/account/accountList.html"
-		]
-	},
-	"views/account/account-list.html": {
-		"resources": [
-			"js/template.js",
-			"js/zepto.1.1.6.js",
-			"js/common.js",
-			"js/mui.min.js",
-			"css/mui.min.css",
-			"fonts/mui.ttf",
-			"js/refresh.js"
-		],
-		"refer": [
-			"views/account/account-view.html"
-		]
-	},
-	"views/account/account-main.html": {
-		"resources": [
-			"views/account/account-list.html",
-			"js/mui.min.js",
-			"fonts/mui.ttf",
-			"css/mui.min.css",
-			"js/refresh.js"
-		],
-		"refer": [
-			"views/account/account-list.html",
-			"views/account/account-detail.html"
-		]
-	},
-	"views/account/account-detail.html": {
-		"resources": [
-			"js/mui.min.js",
-			"fonts/mui.ttf",
-			"css/mui.min.css",
-			"js/common.js",
-			"js/zepto.1.1.6.js",
-			"js/jsencrypt.min.js"
-		],
-		"refer": []
-	},
-	"views/init/reg.html": {
-		"resources": [
-			"fonts/mui.ttf"
-		],
-		"refer": [
-			"main.html"
-		]
-	},
-	"views/account/account-view.html": {
-		"resources": [
-			"js/jsencrypt.min.js",
-			"js/zepto.1.1.6.js",
-			"js/common.js",
-			"js/mui.min.js",
-			"fonts/mui.ttf",
-			"css/mui.min.css"
-		],
-		"refer": []
-	},
-	"views/account/account-pwd.html": {
-		"resources": [
-			"js/mui.min.js",
-			"fonts/mui.ttf",
-			"css/mui.min.css",
-			"js/common.js",
-			"js/zepto.1.1.6.js",
-			"js/jsencrypt.min.js"
-		],
-		"refer": []
-	},
-	"views/setting/setting-account.html": {
-		"resources": [
-			"images/default_header.png",
-			"js/mui.min.js",
-			"fonts/mui.ttf",
-			"css/mui.min.css"
-		]
-	}
+  "index.html": {
+    "href": "index.html",
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "images/guide.jpg",
+      "js/common.js"
+    ],
+    "refer": [
+      "views/init/login.html"
+    ],
+    "priority": 0
+  },
+  "main.html": {
+    "resources": [
+      "account.html",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css"
+    ],
+    "refer": [
+      "account.html",
+      "setting.html"
+    ]
+  },
+  "account.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "js/zepto.1.1.6.js",
+      "js/jsencrypt.min.js",
+      "js/common.js"
+    ],
+    "refer": [
+      "views/account/accountList.html",
+      "views/account/pullrefresh_main.html",
+      "views/account/account-main.html",
+      "views/account/account-pwd.html"
+    ]
+  },
+  "setting.html": {
+    "resources": [
+      "css/mui.min.css",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/feedback.css",
+      "images/default_header.png",
+      "js/common.js",
+      "images/icon.png"
+    ],
+    "refer": [
+      "views/account/account-pwd.html",
+      "views/setting/setting-account.html"
+    ]
+  },
+  "views/init/login.html": {
+    "resources": [
+      "fonts/mui.ttf",
+      "js/md5.js",
+      "js/common.js",
+      "js/mui.min.js",
+      "css/mui.min.css"
+    ],
+    "refer": [
+      "main.html",
+      "views/init/reg.html"
+    ]
+  },
+  "views/account/accountList.html": {
+    "resources": [
+      "js/template.js",
+      "js/zepto.1.1.6.js",
+      "js/common.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css"
+    ],
+    "refer": []
+  },
+  "views/account/pullrefresh_main.html": {
+    "resources": [
+      "views/account/accountList.html",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css"
+    ],
+    "refer": [
+      "views/account/accountList.html"
+    ]
+  },
+  "views/account/account-list.html": {
+    "resources": [
+      "js/template.js",
+      "js/zepto.1.1.6.js",
+      "js/common.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "js/refresh.js"
+    ],
+    "refer": [
+      "views/account/account-view.html"
+    ]
+  },
+  "views/account/account-main.html": {
+    "resources": [
+      "views/account/account-list.html",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "js/refresh.js"
+    ],
+    "refer": [
+      "views/account/account-list.html",
+      "views/account/account-detail.html"
+    ]
+  },
+  "views/account/account-detail.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "js/common.js",
+      "js/zepto.1.1.6.js",
+      "js/jsencrypt.min.js"
+    ],
+    "refer": []
+  },
+  "views/init/reg.html": {
+    "resources": [
+      "fonts/mui.ttf"
+    ],
+    "refer": [
+      "main.html"
+    ]
+  },
+  "views/account/account-view.html": {
+    "resources": [
+      "js/jsencrypt.min.js",
+      "js/zepto.1.1.6.js",
+      "js/common.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css"
+    ],
+    "refer": []
+  },
+  "views/account/account-pwd.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "js/common.js",
+      "js/zepto.1.1.6.js",
+      "js/jsencrypt.min.js"
+    ],
+    "refer": []
+  },
+  "views/setting/setting-account.html": {
+    "resources": [
+      "images/default_header.png",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css"
+    ],
+    "refer": []
+  },
+  "imageviewer.html": {
+    "resources": [
+      "js/mui.zoom.js",
+      "images/guide.jpg",
+      "images/icon.png",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "js/mui.previewimage.js",
+      "js/mui.js",
+      "images/default_header.png",
+      "js/mui.min.js"
+    ],
+    "refer": []
+  }
 }

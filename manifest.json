@@ -400,11 +400,25 @@
 				],
 				"refer": [],
 				"priority": 0
+			},
+			"imageviewer.html": {
+				"resources": [
+					"js/mui.zoom.js",
+					"images/guide.jpg",
+					"images/icon.png",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/mui.previewimage.js",
+					"js/mui.js",
+					"images/default_header.png",
+					"js/mui.min.js"
+				],
+				"refer": [],
+				"priority": 0
 			}
 		},
 		"idle": {
 			"resources": [
-				"js/mui.js",
 				"css/mui.css"
 			]
 		}
