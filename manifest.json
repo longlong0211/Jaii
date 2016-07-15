@@ -274,7 +274,12 @@
 					"css/feedback.css",
 					"images/default_header.png",
 					"js/common.js",
-					"images/icon.png"
+					"images/icon.png",
+					"js/imgload.js",
+					"js/template.js",
+					"js/md5.image.js",
+					"js/zepto.1.1.6.js",
+					"images/translate.png"
 				],
 				"refer": [
 					"views/account/account-pwd.html",
@@ -396,7 +401,8 @@
 					"images/default_header.png",
 					"js/mui.min.js",
 					"fonts/mui.ttf",
-					"css/mui.min.css"
+					"css/mui.min.css",
+					"js/common.js"
 				],
 				"refer": [],
 				"priority": 0
