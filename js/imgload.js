@@ -1,3 +1,4 @@
+//http://ask.dcloud.net.cn/article/397 参考网址
 //设置背景图时,去掉图片灰色边框,第一次使用请检查路径是否正确!!
 var img_translate="images/translate.png";
 
@@ -20,20 +21,19 @@ function load(obj) {
 	//本地缓存路径
 	var hb_path = '_downloads/image/' + md5(image_url) + '.jpg'; //HBuilder平台路径
 	var sd_path = plus.io.convertLocalFileSystemURL(hb_path); //SD卡绝对路径
-	console.log("sd_path:"+sd_path);
 	
-	//temp用于判断图片文件是否存在
+	//temp用于判断图片文件是否存在 
+	//temp.src的赋值位置无关，但是必须赋值。赋值后才能判断调用onload或onerror
 	var temp = new Image();
 	temp.src = sd_path;
 	temp.onload = function() {
 		// 1存在, 则直接显示
-		console.log('已存在,直接显示==' + hb_path);
 		setLoaded(obj,sd_path);
 	};
 	temp.onerror = function() {
 		// 2不存在, 则下载图片
-		console.log('不存在==' + hb_path);
 		//为避免下载出错或下载超时过长,先用src加载图显示
+		//temp.src进行了赋值，因此可以执行onload（与src赋值位置无关）
 		var temp = new Image();
 		temp.onload = function() {
 			setLoaded(obj, image_url); //设置图片
@@ -66,14 +66,12 @@ function startTask() {
 	var image_url = obj.getAttribute('data-src');
 	var hb_path = obj.getAttribute('hb_path');
 	var sd_path=obj.getAttribute('sd_path');
-	console.log("从任务集合中取一个任务==" + hb_path);
 	//检查是否已经下载过,避免downloader文件存在时无回调,手机发烫;
 	//(本来打算先检查图片是否已在任务队列中,如果存在则不加入;但是可能图刚加入时就被取出,导致后面相同的图又重复加入,出现本地图存在,下载无回调的问题)
 	var temp = new Image();
 	temp.src = sd_path;
 	temp.onload = function() {
 		//已下载则跳过
-		console.log("已下载则跳过==" + hb_path);
 		startTask();
 	};
 	temp.onerror = function() {
@@ -83,7 +81,6 @@ function startTask() {
 			"timeout": 10,
 			"retry": 2
 		}, function(download, status) {
-			console.log("下载回调status==" + status+"-->"+hb_path);
 			if (status == 200) {
 				setLoaded(obj,sd_path);
 			}else{
@@ -102,7 +99,7 @@ function startTask() {
 /*给<img>设置背景,标志加载成功*/
 function setLoaded(obj,bg_url) {
 	if (obj.getAttribute("data-loaded")) return;
-	obj.classList.add("anim_opacity"); //渐变动画
+	//obj.classList.add("anim_opacity"); //渐变动画
 	obj.setAttribute("data-loaded", true);//标记成功
 	obj.setAttribute("src",bg_url); //去掉灰色边,只有背景图才可居中铺满图片
 	//obj.style.backgroundImage = "url(" + bg_url + ")"; //背景
