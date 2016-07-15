@@ -72,7 +72,7 @@
 							<li class="mui-table-view-cell">
 								<a id="head" class="mui-navigate-right">头像
 								<span class="mui-pull-right head">
-									<img class="head-img mui-action-preview" id="head-img1" src=""/>
+									<img class="head-img mui-action-preview" id="head-img1" src="../../images/translate.png"/>
 								</span>
 							</a>
 							</li>
@@ -174,7 +174,9 @@
 						console.log(s);
 						//document.getElementById("head-img").src = s;
 						document.getElementById("head-img1").src = s;
-						uploadFile("/app/init/uploadFile.json",plus,s);
+						uploadFile("/app/init/uploadFile.json",plus,s,function(data){
+							alert(data);
+						});
 						//变更大图预览的src
 						//目前仅有一张图片，暂时如此处理，后续需要通过标准组件实现
 						//document.querySelector("#__mui-imageview__group .mui-slider-item img").src = s + "?version=" + new Date().getTime();;;

@@ -76,17 +76,16 @@ function postNoDialog(url,plus,data,callback){
     });  				
 };
 
-function uploadFile(url,plus,path){
+function uploadFile(url,plus,path,callback){
 	var wt=plus.nativeUI.showWaiting();  
 	var task = plus.uploader.createUpload(base_server+url, 
 				{method:"POST"},
 				function (t, status ) {
 					// 上传完成
 					if ( status == 200 ) { 
-						alert(t.responseText);
 						wt.close();  
+						callback(t.responseText);
 					} else {
-						alert( "Upload failed: " + status );
 						wt.close();  
 					}
 				}
