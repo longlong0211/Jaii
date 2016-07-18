@@ -84,7 +84,7 @@ function uploadFile(url,plus,path,callback){
 					// 上传完成
 					if ( status == 200 ) { 
 						wt.close();  
-						callback(t.responseText);
+						callback(JSON.parse(t.responseText));
 					} else {
 						wt.close();  
 					}

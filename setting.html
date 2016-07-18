@@ -241,8 +241,15 @@
 				  		});
 					}
 				});
-			})
+			});
+			
+			window.addEventListener("refreshAccount",function(event){
+				document.getElementById("head-img").src=event.detail.msg;
+			});
 		})(mui);
+		
+		
+		
 	</script>
 </body>
 </html>

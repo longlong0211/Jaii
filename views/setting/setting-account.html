@@ -176,8 +176,10 @@
 						//document.getElementById("head-img").src = s;
 						document.getElementById("head-img1").src = s;
 						document.getElementById("mui-preview-image").src=s;
-						uploadFile("/app/init/uploadFile.json",plus,s,function(data){
-							alert(data);
+						uploadFile("/app/user/uploadHeadPic.json",plus,s,function(data){
+							if(data.errCode=="0" && data.suc){
+								mui.fire(plus.webview.getWebviewById("setting.html"), 'refreshAccount',data);
+							}
 						});
 						//变更大图预览的src
 						//目前仅有一张图片，暂时如此处理，后续需要通过标准组件实现
@@ -205,8 +207,10 @@
 										//document.getElementById("head-img").src = e;
 										document.getElementById("head-img1").src = e;
 										document.getElementById("mui-preview-image").src=e;
-										uploadFile("/app/init/uploadFile.json",plus,"file://"+e,function(data){
-											
+										uploadFile("/app/user/uploadHeadPic.json",plus,"file://"+e,function(data){
+											if(data.errCode=="0" && data.suc){
+												mui.fire(plus.webview.getWebviewById("setting.html"), 'refreshAccount',data);
+											}
 										});
 										//变更大图预览的src
 										//目前仅有一张图片，暂时如此处理，后续需要通过标准组件实现
@@ -225,8 +229,10 @@
 									//document.getElementById("head-img").src = path;
 									document.getElementById("head-img1").src = path;
 									document.getElementById("mui-preview-image").src=path;
-									uploadFile("/app/init/uploadFile.json",plus,"file://"+path,function(data){
-										
+									uploadFile("/app/user/uploadHeadPic.json",plus,"file://"+path,function(data){
+										if(data.errCode=="0" && data.suc){
+											mui.fire(plus.webview.getWebviewById("setting.html"), 'refreshAccount',data);
+										}
 									});
 									//变更大图预览的src
 									//目前仅有一张图片，暂时如此处理，后续需要通过标准组件实现
