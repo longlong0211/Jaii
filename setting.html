@@ -246,6 +246,18 @@
 			window.addEventListener("refreshAccount",function(event){
 				document.getElementById("head-img").src=event.detail.msg;
 			});
+			
+			window.addEventListener("refreshUser",function(event){
+				postNoDialog("/app/my/index.json",plus,null,function(data){
+//					方式一：始终网络加载图片
+//					document.getElementById("head-img").src=data.info.headPath;
+//					document.getElementById("nickName").innerText=data.info.nickName;
+//					document.getElementById("userName").innerText=data.info.userName;
+//					方式二：加载本地使用
+					var html = template("account-detail",data.info);
+					document.getElementById("accountDetail").innerHTML=html;
+				});
+			});
 		})(mui);
 		
 		

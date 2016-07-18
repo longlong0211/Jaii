@@ -169,7 +169,8 @@
 			"js/mui.min.js",
 			"fonts/mui.ttf",
 			"css/mui.min.css",
-			"js/common.js"
+			"js/common.js",
+			"images/translate.png"
 		],
 		"refer": []
 	},
