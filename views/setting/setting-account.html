@@ -177,8 +177,10 @@
 						document.getElementById("head-img1").src = s;
 						document.getElementById("mui-preview-image").src=s;
 						uploadFile("/app/user/uploadHeadPic.json",plus,s,function(data){
-							if(data.errCode=="0" && data.suc){
+							if(data.errCode=="0"){
 								mui.fire(plus.webview.getWebviewById("setting.html"), 'refreshAccount',data);
+							}else {
+								mui.toast(data.errMess);
 							}
 						});
 						//变更大图预览的src
@@ -208,8 +210,10 @@
 										document.getElementById("head-img1").src = e;
 										document.getElementById("mui-preview-image").src=e;
 										uploadFile("/app/user/uploadHeadPic.json",plus,"file://"+e,function(data){
-											if(data.errCode=="0" && data.suc){
+											if(data.errCode=="0"){
 												mui.fire(plus.webview.getWebviewById("setting.html"), 'refreshAccount',data);
+											}else {
+												mui.toast(data.errMess);
 											}
 										});
 										//变更大图预览的src
@@ -230,8 +234,10 @@
 									document.getElementById("head-img1").src = path;
 									document.getElementById("mui-preview-image").src=path;
 									uploadFile("/app/user/uploadHeadPic.json",plus,"file://"+path,function(data){
-										if(data.errCode=="0" && data.suc){
+										if(data.errCode=="0"){
 											mui.fire(plus.webview.getWebviewById("setting.html"), 'refreshAccount',data);
+										}else {
+											mui.toast(data.errMess);
 										}
 									});
 									//变更大图预览的src
