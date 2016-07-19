@@ -242,10 +242,12 @@
 					"account.html",
 					"js/mui.min.js",
 					"fonts/mui.ttf",
-					"css/mui.min.css"
+					"css/mui.min.css",
+					"images/folder.png"
 				],
 				"refer": [
-					"setting.html"
+					"setting.html",
+					"media.html"
 				],
 				"priority": 0
 			},
@@ -365,7 +367,11 @@
 			},
 			"views/init/reg.html": {
 				"resources": [
-					"fonts/mui.ttf"
+					"fonts/mui.ttf",
+					"js/common.js",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/md5.js"
 				],
 				"refer": [
 					"main.html"
@@ -419,6 +425,17 @@
 					"js/mui.js",
 					"images/default_header.png",
 					"js/mui.min.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"media.html": {
+				"resources": [
+					"images/media.png",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"images/folder.png",
+					"fonts/mui.ttf"
 				],
 				"refer": [],
 				"priority": 0
