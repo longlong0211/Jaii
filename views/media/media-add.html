@@ -32,43 +32,24 @@
 		</div>
 		<script src="../../js/mui.min.js"></script>
 		<script src="../../js/common.js"></script>
-		<script src="../../js/zepto.1.1.6.js"></script>
-		<script src="../../js/jsencrypt.min.js"></script>
 		<script type="text/javascript">
 			(function($){
 				$.init();
 				$.plusReady(function(){
 					document.getElementById("addAccount").addEventListener("tap",function(event){
 						var name = document.getElementById("name").value;
-						var accountNo = document.getElementById("accountNo").value;
-						var pwd = document.getElementById("pwd").value;
 						var memo = document.getElementById("memo").value;
 						if(name=="" || name==null){
-							$.toast("输入记录名称");
+							$.toast("填写文件夹名称");
 							return;
 						}
-						if(accountNo==""||accountNo==null){
-							$.toast("输入记录账号");
-							return;
-						}
-						if(pwd==""||pwd==null){
-							$.toast("请输入记录密码");
-							return;
-						}
-						if(memo==""||memo==null){
-							memo="";
-						}
-						var encrypt = new JSEncrypt();
-						var pubKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCNKl3AQgXVYM7neR5F4sD2lUI9UylCvyFU4algzwicydsmr2bNIougI9I1ydAs/vXNvGXDPHvgLGzXJUkHak/5sIUBkhzx0bDvgPKi5UMHeHZ+ZORk6cpsi4KEB54hBRgz3od8EouGTvI8fex0lRLd7DJfThKJvdmP34f2yag49QIDAQAB";
-						encrypt.setPublicKey(pubKey);
-						pwd = encrypt.encrypt(pwd);
 						var wd = plus.nativeUI.showWaiting();
-						var data = {"name":name,"pwd":pwd,"accountNo":accountNo,"memo":memo};
-						postRequest("/app/user/addAccount.json",plus,data,function(data){
+						var data = {"name":name,"desc":memo};
+						postRequest("/app/media/addMediaGroup.json",plus,data,function(data){
 							wd.close();
 							if(data.errCode=="0"){
 								$.toast("保存成功");
-								$.fire(plus.webview.getWebviewById("account-list.html"), 'backRefresh');
+								$.fire(plus.webview.getWebviewById("media.html"), 'refreshMeidaList');
 								$.back();
 							}else {
 								$.toast(data.errMess);

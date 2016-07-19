@@ -73,7 +73,7 @@
 					function(data){
 						if(data.errCode=="0"){
 							var html = template("account-list",data);
-							$("#mui-content").append(html)
+							$("#mui-content").append(html);
 							if(data.page==data.totalPage){
 								hasMore = false;
 								mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);//参数为true说明没有更多数据

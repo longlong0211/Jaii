@@ -247,7 +247,8 @@
 				],
 				"refer": [
 					"setting.html",
-					"media.html"
+					"media.html",
+					"views/media/media-add.html"
 				],
 				"priority": 0
 			},
@@ -435,7 +436,23 @@
 					"js/mui.min.js",
 					"css/mui.min.css",
 					"images/folder.png",
-					"fonts/mui.ttf"
+					"fonts/mui.ttf",
+					"js/zepto.1.1.6.js",
+					"js/common.js",
+					"js/template.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"views/media/media-add.html": {
+				"resources": [
+					"js/zepto.1.1.6.js",
+					"js/common.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"images/media.png",
+					"js/jsencrypt.min.js"
 				],
 				"refer": [],
 				"priority": 0

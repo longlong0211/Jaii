@@ -15,46 +15,43 @@
 	</head>
 	<body>
 		<div class="mui-content">
-		    <ul class="mui-table-view mui-grid-view" style="margin-top: 0px;">
-		        <li class="mui-table-view-cell mui-media mui-col-xs-6">
-		            <a href="#">
+		    <ul class="mui-table-view mui-grid-view" style="margin-top: 0px;" id="mui-content">
+		       
+		    </ul>  
+		    <script type="text/html" id="account-list">
+		    	{{each mediaGroupList as mediaGroup}}
+		    	 	<li class="mui-table-view-cell mui-media mui-col-xs-6" id={{mediaGroup.id}}>
+		            <a href="javascript:;">
 		                <img class="mui-media-object" src="images/media.png">
-		                <div class="mui-media-body">幸福就是可以一起睡觉</div></a></li>
-		        <li class="mui-table-view-cell mui-media mui-col-xs-6">
-		            <a href="#">
-		                <img class="mui-media-object" src="images/media.png">
-		                <div class="mui-media-body">想要一间这样的木屋，静静的喝咖啡</div></a></li>
-		        <li class="mui-table-view-cell mui-media mui-col-xs-6">
-		            <a href="#"><img class="mui-media-object" src="images/media.png">
-		                <div class="mui-media-body">Color of SIP CBD</div></a></li>
-		        <li class="mui-table-view-cell mui-media mui-col-xs-6">
-		            <a href="#">
-		                <img class="mui-media-object" src="images/media.png">
-		                <div class="mui-media-body">静静看这世界</div></a></li>
-		          <li class="mui-table-view-cell mui-media mui-col-xs-6">
-		            <a href="#">
-		                <img class="mui-media-object" src="images/media.png">
-		                <div class="mui-media-body">幸福就是可以一起睡觉</div></a></li>
-		        <li class="mui-table-view-cell mui-media mui-col-xs-6">
-		            <a href="#">
-		                <img class="mui-media-object" src="images/media.png">
-		                <div class="mui-media-body">想要一间这样的木屋，静静的喝咖啡</div></a></li>
-		        <li class="mui-table-view-cell mui-media mui-col-xs-6">
-		            <a href="#"><img class="mui-media-object" src="images/media.png">
-		                <div class="mui-media-body">Color of SIP CBD</div></a></li>
-		        <li class="mui-table-view-cell mui-media mui-col-xs-6">
-		            <a href="#">
-		                <img class="mui-media-object" src="images/media.png">
-		                <div class="mui-media-body">静静看这世界</div></a></li>       
-		    </ul>    
+		                <div class="mui-media-body">{{mediaGroup.name}}</div>
+		            </a>
+		    	 	</li>
+		    	  {{/each}} 	
+		    	</script>
 		</div>
 		<script src="js/mui.min.js"></script>
+		<script src="js/common.js"></script>
+		<script src="js/template.js"></script>
 		<script type="text/javascript">
 			(function($){
 				$.init();
 				$.plusReady(function(){
+					initMeidaList();
 				});
-			})(mui)
+			})(mui);
+			
+			function initMeidaList(){
+				postNoDialog("/app/media/list.json",plus,null,function(data){
+						if(data.errCode=="0"){
+							var html = template("account-list",data);
+							document.getElementById("mui-content").innerHTML = html;
+						}
+					});
+			}
+			
+			window.addEventListener("refreshMeidaList",function(event){
+				initMeidaList();
+			});
 		</script>
 	</body>
 

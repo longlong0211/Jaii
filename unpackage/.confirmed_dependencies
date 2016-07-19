@@ -17,11 +17,14 @@
 			"account.html",
 			"js/mui.min.js",
 			"fonts/mui.ttf",
-			"css/mui.min.css"
+			"css/mui.min.css",
+			"images/folder.png"
 		],
 		"refer": [
 			"account.html",
-			"setting.html"
+			"setting.html",
+			"media.html",
+			"views/media/media-add.html"
 		]
 	},
 	"account.html": {
@@ -135,7 +138,11 @@
 	},
 	"views/init/reg.html": {
 		"resources": [
-			"fonts/mui.ttf"
+			"fonts/mui.ttf",
+			"js/common.js",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"js/md5.js"
 		],
 		"refer": [
 			"main.html"
@@ -187,5 +194,29 @@
 			"js/mui.min.js"
 		],
 		"refer": []
+	},
+	"media.html": {
+		"resources": [
+			"images/media.png",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"images/folder.png",
+			"fonts/mui.ttf",
+			"js/zepto.1.1.6.js",
+			"js/common.js",
+			"js/template.js"
+		],
+		"refer": []
+	},
+	"views/media/media-add.html": {
+		"resources": [
+			"js/zepto.1.1.6.js",
+			"js/common.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"images/media.png",
+			"js/jsencrypt.min.js"
+		]
 	}
 }
