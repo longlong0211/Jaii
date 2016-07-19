@@ -50,7 +50,11 @@
 		</div>
 		<script src="js/mui.min.js"></script>
 		<script type="text/javascript">
-			mui.init()
+			(function($){
+				$.init();
+				$.plusReady(function(){
+				});
+			})(mui)
 		</script>
 	</body>
 
