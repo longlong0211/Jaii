@@ -1,5 +1,5 @@
 var base_server = "http://192.168.17.100:8080";
-//base_server = "http://www.helpyourecord.com:8888";
+base_server = "http://www.helpyourecord.com:8888";
 var k,version;
 var version_key = "version";
 var k_key = "k";

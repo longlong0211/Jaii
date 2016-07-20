@@ -138,6 +138,7 @@
 								plus.storage.setItem("k",data.k);
 								plus.storage.setItem("hasAccountPwd",data.hasAccountPwd);
 								mui.fire(plus.webview.getWebviewById("setting.html"), 'refreshUser');
+								mui.fire(plus.webview.getWebviewById("media.html"), 'refreshMeidaList');
 								mui.openWindow({
 							    		url:"../../main.html",
 							    		id:"main.html",
