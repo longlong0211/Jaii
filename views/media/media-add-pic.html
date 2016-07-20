@@ -1,0 +1,175 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">添加文件夹</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-content-padded" style="margin: 5px;">
+				<img id="head" class="mui-media-object" src="../../images/arrow299.png" style="display:block; margin:0 auto;" width="100px;" height="100px;">	
+				<div class="mui-input-group">
+					<div class="mui-input-row">
+						<label>名称</label>
+						<input id="name" type="text" class="mui-input-clear" placeholder="图片名称">
+					</div>
+				</div>
+				<div class="mui-input-row" style="margin: 10px 5px;">
+					<textarea id="memo" rows="5" placeholder="描述"></textarea>
+				</div>
+				<div class="mui-button-row">
+						<button type="button" class="mui-btn mui-btn-primary" id="addAccount">保存</button>&nbsp;&nbsp;
+						<button type="button" class="mui-btn mui-btn-danger" id="cancel">取消</button>
+				</div>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/common.js"></script>
+		<script type="text/javascript">
+			var mgId,filePath;
+			(function($){
+				$.init();
+				$.plusReady(function(){
+					var self = plus.webview.currentWebview();
+					mgId = self.mgId;
+					$(".mui-content-padded").on("tap", "#head", function(e) {
+						if($.os.plus){
+							var a = [{
+								title: "拍照"
+							}, {
+								title: "从手机相册选择"
+							}];
+							plus.nativeUI.actionSheet({
+								title: "修改头像",
+								cancel: "取消",
+								buttons: a
+							}, function(b) {
+								switch (b.index) {
+									case 0:
+										break;
+									case 1:
+										getImage();
+										break;
+									case 2:
+										galleryImg();
+										break;
+									default:
+										break
+								}
+							})	
+						}
+					});
+					
+					document.getElementById("addAccount").addEventListener("tap",function(event){
+						var name = document.getElementById("name").value;
+						var memo = document.getElementById("memo").value;
+						if(name=="" || name==null){
+							$.toast("填写图片名称");
+							return;
+						}
+						var wt=plus.nativeUI.showWaiting();  
+						var task = plus.uploader.createUpload(base_server+"/app/media/uploadPic.json", 
+									{method:"POST"},
+									function (t, status ) {
+										// 上传完成
+										if ( status == 200 ) { 
+											wt.close();  
+											var data = JSON.parse(t.responseText);
+											if(data.errCode=="0"){
+												mui.fire(plus.webview.getWebviewById("media-list.html"), 'refreshPicList',data);
+												mui.back();
+											}else {
+												mui.toast(data.errMess);
+											}
+										} else {
+											wt.close();  
+										}
+									}
+						);
+						task.setRequestHeader("udid",plus.device.uuid);
+						task.setRequestHeader("name",plus.os.name);
+						task.setRequestHeader("version",plus.storage.getItem(version_key));
+						task.setRequestHeader("k",plus.storage.getItem(k_key));
+						task.addData("mgId",mgId);
+						task.addData("name",name);
+						task.addData("desc",memo);
+						task.addFile(filePath,{key:"file"})
+						task.start();  
+						
+					});
+					
+					document.getElementById("cancel").addEventListener("tap",function(e){
+						$.back();
+					});
+				});
+			})(mui);
+			
+			//拍照
+			function getImage() {
+				var c = plus.camera.getCamera();
+				c.captureImage(function(e) {
+					plus.io.resolveLocalFileSystemURL(e, function(entry) {
+						var s = entry.toLocalURL() + "?version=" + new Date().getTime();
+						document.getElementById("head").src = s;
+						filePath = s;
+					}, function(e) {
+						console.log("读取拍照文件错误：" + e.message);
+					});
+				}, function(s) {
+					console.log("error" + s);
+				}, {
+					filename: "_doc/head.jpg"
+				})
+			}
+		//从相册选择
+		function galleryImg() {
+			plus.gallery.pick(function(a) {
+				plus.io.resolveLocalFileSystemURL(a, function(entry) {
+					plus.io.resolveLocalFileSystemURL("_doc/", function(root) {
+						root.getFile("head.jpg", {}, function(file) {
+							//文件已存在
+							file.remove(function() {
+								console.log("file remove success");
+								entry.copyTo(root, 'head.jpg', function(e) {
+										var e = e.fullPath + "?version=" + new Date().getTime();
+										document.getElementById("head").src = e;
+										filePath = "file://"+e;
+									},
+									function(e) {
+										console.log('copy image fail:' + e.message);
+									});
+							}, function() {
+								console.log("delete image fail:" + e.message);
+							});
+						}, function() {
+							//文件不存在
+							entry.copyTo(root, 'head.jpg', function(e) {
+									var path = e.fullPath + "?version=" + new Date().getTime();
+									document.getElementById("head").src = path;
+									filePath = "file://"+path;
+								},
+								function(e) {
+									console.log('copy image fail:' + e.message);
+								});
+						});
+					}, function(e) {
+						console.log("get _www folder fail");
+					})
+				}, function(e) {
+					console.log("读取拍照文件错误：" + e.message);
+				});
+			}, function(a) {}, {
+				filter: "image"
+			})
+		};
+			
+		</script>
+	</body>
+
+</html>
