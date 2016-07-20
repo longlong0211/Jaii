@@ -6,12 +6,111 @@
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<style>
+			li img {
+				max-width: 100%;
+				height: auto;
+			}
+		</style>
 	</head>
-
 	<body>
+		<div class="mui-content">
+			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<ul class="mui-table-view" id="mui-content">
+						
+					</ul>
+					<script type="text/html" id="account-list">
+						{{each mediaList as media}}
+						 	<li class="mui-table-view-cell">
+					 			<img data-lazyload-id="{{media.id}}" src="{{media.path}}"  />
+					 			<h5>{{media.name}}</h5>
+					 		</li>
+					 	{{/each}} 
+					</script>
+				</div>
+			</div>
+		</div>
+		
 		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/zepto.1.1.6.js"></script>
+		<script src="../../js/common.js"></script>
+		<script src="../../js/template.js"></script>
 		<script type="text/javascript">
-			mui.init()
+			var mgId;
+			var hasMore=true,page=1;
+			(function($){
+				$.init({
+					pullRefresh: {
+						container: '#pullrefresh',
+						up: {
+					      	contentrefresh : "正在加载...",//可选，正在加载状态时，上拉加载控件上显示的标题内容
+					      	contentnomore:'没有更多数据了',
+							callback: pullupRefreshUp
+						},
+						down:{
+							contentdown : "下拉可以刷新",//可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+					      	contentover : "释放立即刷新",//可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+					     	contentrefresh : "正在刷新...",//可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+					      	callback:pulldownRefresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+						}
+					}
+				});
+				$.plusReady(function(){
+					var self = plus.webview.getWebviewById("media-main.html");
+					mgId = self.mgId;
+					initList();
+				});
+			})(mui);
+			
+			function initList(){
+				var data = {"mgId":mgId,"page":page};
+				postNoDialog("/app/media/mediaList.json",plus,data,
+					function(data){
+						if(data.errCode=="0"){
+							var html = template("account-list",data);
+							$("#mui-content").append(html);
+							if(data.page==data.totalPage){
+								hasMore = false;
+								mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);//参数为true说明没有更多数据
+								mui('#pullrefresh').pullRefresh().disablePullupToRefresh();
+							}else{
+								mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
+								page++;
+							}
+						}else {
+							mui.toast(data.errMess);
+						}
+				});
+			};
+			
+			function pullupRefreshUp(){
+				if(hasMore){
+					initList();
+				}
+			};
+			
+			function pulldownRefresh(){
+				page=1;
+				var data = {"mgId":mgId,"page":page};
+				postNoDialog("/app/media/mediaList.json",plus,data,
+					function(data){
+						if(data.errCode=="0"){
+							var html = template("account-list",data);
+							document.getElementById("mui-content").innerHTML = html
+							mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+							if(data.page==data.totalPage){
+								hasMore = false;
+							}else{
+								page++;
+								hasMore = true;
+								mui('#pullrefresh').pullRefresh().enablePullupToRefresh();
+							}
+						}else {
+							mui.toast(data.errMess);
+						}
+				});
+			};
 		</script>
 	</body>
 
